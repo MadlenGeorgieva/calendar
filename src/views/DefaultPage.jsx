@@ -1,5 +1,5 @@
 
-// import './App.css'
+import '../App.css'
 import EventList from '../components/EventList'
 import Footer from '../Components/footer'
 import Header from '../Components/header'
@@ -66,14 +66,12 @@ function DefaultPage() {
   return (
     
     <>
-    <Header/>
 
     <Searchfield handleInputChange={handleInputChange} filter={filterText}/>
     <EventList events={filteredEvents}/>
 
     <img src={myimage} alt="My Image" width="50%" /> <br />
     <video src={myvideo} controls width="50%" />
-    <Footer/>
     </>
   )
 };
