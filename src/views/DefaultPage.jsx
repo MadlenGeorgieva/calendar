@@ -10,6 +10,17 @@ import { useEffect, useState } from 'react'
 
 
 function DefaultPage() {
+
+const [events, setEvents] = useState(() => {
+  const savedEvents = localStorage.getItem("events");
+  return savedEvents ? JSON.parse(savedEvents) : [];
+});
+
+useEffect(() => {
+  localStorage.setItem("events", JSON.stringify(events));
+}, [events]);
+
+
   //  STATE HOOK FOR FILTERING
   // filterText - the current value of the filter text, which is initially an empty string./Variable
   // setFilterText - a function that can be used to update the filterText state when the user types in the search field./Function
@@ -66,25 +77,28 @@ function DefaultPage() {
   return (
     
     <>
-
     <Searchfield handleInputChange={handleInputChange} filter={filterText}/>
-    <EventList events={filteredEvents}/>
+    {filteredEvents.length > 0 ? (
+      <div>
+      <EventList events={filteredEvents} setEvents={setEvents}/>
+      </div>
+    ) : (
+      <p>No events found.</p>
+    )}
+      <img src={myimage} alt="My Image" width="50%" /> <br />
+      <video src={myvideo} controls width="50%" />
+      </>
+    )
+  };
 
-    <img src={myimage} alt="My Image" width="50%" /> <br />
-    <video src={myvideo} controls width="50%" />
-    </>
-  )
-};
 
-
-
-const events = [
-    { id: 1, title: 'Birthday Party', date: '2026-07-20', description: 'A fun birthday party with friends and family.' },
-    { id: 2, title: 'Conference', date: '2026-09-10', description: 'Annual tech conference with various speakers and workshops.' },
-    { id: 3, title: 'Wedding', date: '2026-02-14', description: 'Celebration of love and commitment with close ones.' },
-    { id: 4, title: 'Music Festival', date: '2026-02-18', description: 'A weekend filled with live music performances and entertainment.' },
-    { id: 5, title: 'Art Exhibition', date: '2026-10-05', description: 'Showcasing contemporary art from local and international artists.' }
-  ]
+// const events = [
+//     { id: 1, title: 'Birthday Party', date: '2026-07-20', description: 'A fun birthday party with friends and family.' },
+//     { id: 2, title: 'Conference', date: '2026-09-10', description: 'Annual tech conference with various speakers and workshops.' },
+//     { id: 3, title: 'Wedding', date: '2026-02-14', description: 'Celebration of love and commitment with close ones.' },
+//     { id: 4, title: 'Music Festival', date: '2026-02-18', description: 'A weekend filled with live music performances and entertainment.' },
+//     { id: 5, title: 'Art Exhibition', date: '2026-10-05', description: 'Showcasing contemporary art from local and international artists.' }
+//   ]
 
 export default DefaultPage
 
